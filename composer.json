@@ -1,0 +1,65 @@
+{
+    "name": "moonshine/oag",
+    "description": "OpenApi specification and docs generator for MoonShine",
+    "keywords": [
+        "laravel",
+        "openapi",
+        "api",
+        "admin",
+        "dashboard",
+        "moonshine"
+    ],
+    "type": "library",
+    "homepage": "https://moonshine-laravel.com",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/moonshine-software/oag/issues",
+        "source": "https://github.com/moonshine-software/oag"
+    },
+    "authors": [
+        {
+            "name": "Danil Shutsky",
+            "email": "info@cutcode.ru",
+            "homepage": "https://cutcode.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.2|^8.3",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "orchestra/testbench": "^9.0",
+        "rector/rector": "^1.0",
+        "moonshine/moonshine": "3.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "MoonShine\\OAG\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MoonShine\\OAG\\Tests\\": "tests/"
+        }
+    },
+    "conflict": {
+        "laravel/framework": "<10.48.0",
+        "moonshine/moonshine": "<3.0"
+    },
+    "scripts": {
+        "rector": "vendor/bin/rector process --clear-cache"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MoonShine\\OAG\\Providers\\OAGServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+        }
+    }
+}

@@ -20,7 +20,7 @@ final class OAGServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'oag');
 
         $this->commands([
-            GenerateCommand::class
+            GenerateCommand::class,
         ]);
     }
 }

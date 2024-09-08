@@ -8,5 +8,4 @@ use MoonShine\OAG\Tests\TestCase;
 
 final class OAGTest extends TestCase
 {
-
 }

@@ -9,11 +9,11 @@ use MoonShine\Contracts\Core\DependencyInjection\CoreContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\OAG\OpenApiGenerator;
 use MoonShine\UI\Contracts\HasDefaultValueContract;
 use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Password;
 use Symfony\Component\Console\Attribute\AsCommand;
-use MoonShine\OAG\OpenApiGenerator;
 
 #[AsCommand(name: 'oag:generate')]
 final class GenerateCommand extends Command
@@ -28,7 +28,8 @@ final class GenerateCommand extends Command
         $url = preg_replace('/(!)(.*?)(!)/', '{$2}', $url);
 
         return str_replace(
-            $this->core->getRouter()->getEndpoints()->home(), '',
+            $this->core->getRouter()->getEndpoints()->home(),
+            '',
             $url
         );
     }
@@ -105,7 +106,7 @@ final class GenerateCommand extends Command
                             '$ref' => "#/components/schemas/$component",
                         ],
                     ],
-                ]
+                ],
             ]);
 
             $parameters = [];
@@ -225,8 +226,10 @@ final class GenerateCommand extends Command
 
             $builder->path(
                 path: $this->endpoint(
-                    $resource->getRouter()->to('crud.update',
-                    ['resourceItem' => '!resourceItem!'])
+                    $resource->getRouter()->to(
+                        'crud.update',
+                        ['resourceItem' => '!resourceItem!']
+                    )
                 ),
                 method: 'put',
                 data: [
@@ -245,7 +248,7 @@ final class GenerateCommand extends Command
                             ],
                         ],
                     ],
-                    'responses' => array_filter($defaultResponses, static fn($k) => $k !== 201, ARRAY_FILTER_USE_KEY),
+                    'responses' => array_filter($defaultResponses, static fn ($k) => $k !== 201, ARRAY_FILTER_USE_KEY),
                 ]
             );
 
@@ -264,12 +267,12 @@ final class GenerateCommand extends Command
                             'application/json' => [
                                 'schema' => [
                                     'type' => 'object',
-                                    'properties' => array_filter($properties, static fn($k) => $k !== $resource->getDataInstance()->getKeyName(), ARRAY_FILTER_USE_KEY),
+                                    'properties' => array_filter($properties, static fn ($k) => $k !== $resource->getDataInstance()->getKeyName(), ARRAY_FILTER_USE_KEY),
                                 ],
                             ],
                         ],
                     ],
-                    'responses' => array_filter($defaultResponses, static fn($k) => $k !== 200, ARRAY_FILTER_USE_KEY),
+                    'responses' => array_filter($defaultResponses, static fn ($k) => $k !== 200, ARRAY_FILTER_USE_KEY),
                 ]
             );
 
@@ -332,7 +335,7 @@ final class GenerateCommand extends Command
                             'schema' => [
                                 ['type' => 'array'],
                             ],
-                        ]
+                        ],
                     ],
                     'responses' => $defaultResponses,
                 ]

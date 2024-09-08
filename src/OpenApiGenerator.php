@@ -83,7 +83,7 @@ final class OpenApiGenerator
                                             'type' => 'object',
                                             'additionalProperties' => [
                                                 'type' => 'array',
-                                                'items' => ['type' => 'string']
+                                                'items' => ['type' => 'string'],
                                             ],
                                         ],
                                     ],
@@ -136,7 +136,7 @@ final class OpenApiGenerator
 
     public function path(string $path, string $method, array $data, bool $authorize = true): self
     {
-        if($authorize) {
+        if ($authorize) {
             $data['security'] = $this->security;
         }
 
@@ -226,18 +226,18 @@ final class OpenApiGenerator
 
             $result = str_replace('jwtAuth: {  }', 'jwtAuth: []', $result);
 
-            if($this->yaml) {
+            if ($this->yaml) {
                 file_put_contents(resource_path('oag.yaml'), $result);
             }
 
-            if($this->json) {
+            if ($this->json) {
                 file_put_contents(resource_path('oag.json'), json_encode($this->data, JSON_THROW_ON_ERROR));
             }
 
             return true;
         } catch (Throwable $e) {
-            if($this->debug) {
-                throw new $e;
+            if ($this->debug) {
+                throw new $e();
             }
 
             return false;

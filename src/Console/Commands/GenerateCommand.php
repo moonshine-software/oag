@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace MoonShine\OAG\Console\Commands;
 
 use Illuminate\Console\Command;
+
+use function Laravel\Prompts\info;
+use function Laravel\Prompts\progress;
+
 use MoonShine\Contracts\Core\DependencyInjection\CoreContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
@@ -14,9 +18,6 @@ use MoonShine\UI\Contracts\HasDefaultValueContract;
 use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Password;
 use Symfony\Component\Console\Attribute\AsCommand;
-
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\progress;
 
 #[AsCommand(name: 'oag:generate')]
 final class GenerateCommand extends Command
@@ -31,7 +32,7 @@ final class GenerateCommand extends Command
         progress(
             label: 'Loading',
             steps: $this->core->getResources()->count(),
-            callback: fn() => $this->build(),
+            callback: fn () => $this->build(),
             hint: '...'
         );
 

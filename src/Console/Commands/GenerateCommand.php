@@ -155,7 +155,7 @@ final class GenerateCommand extends Command
 
             $sorts = [];
             foreach (
-                $resource->getIndexFields()->filter(fn (FieldContract $field) => $field->isSortable()) as $sortField
+                $resource->getIndexFields()->filter(fn (FieldContract $field): bool => $field->isSortable()) as $sortField
             ) {
                 $sorts[] = $sortField->getColumn();
                 $sorts[] = '-' . $sortField->getColumn();
@@ -265,7 +265,7 @@ final class GenerateCommand extends Command
                             ],
                         ],
                     ],
-                    'responses' => array_filter($defaultResponses, static fn ($k) => $k !== 201, ARRAY_FILTER_USE_KEY),
+                    'responses' => array_filter($defaultResponses, static fn ($k): bool => $k !== 201, ARRAY_FILTER_USE_KEY),
                 ]
             );
 
@@ -284,12 +284,12 @@ final class GenerateCommand extends Command
                             'application/json' => [
                                 'schema' => [
                                     'type' => 'object',
-                                    'properties' => array_filter($properties, static fn ($k) => $k !== $resource->getDataInstance()->getKeyName(), ARRAY_FILTER_USE_KEY),
+                                    'properties' => array_filter($properties, static fn ($k): bool => $k !== $resource->getDataInstance()->getKeyName(), ARRAY_FILTER_USE_KEY),
                                 ],
                             ],
                         ],
                     ],
-                    'responses' => array_filter($defaultResponses, static fn ($k) => $k !== 200, ARRAY_FILTER_USE_KEY),
+                    'responses' => array_filter($defaultResponses, static fn ($k): bool => $k !== 200, ARRAY_FILTER_USE_KEY),
                 ]
             );
 

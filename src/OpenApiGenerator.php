@@ -10,7 +10,75 @@ use Throwable;
 
 final class OpenApiGenerator
 {
-    private array $data;
+    private array $data = [
+        'openapi' => '3.0.1',
+        'info' => [
+            'title' => '',
+            'description' => '',
+            'version' => '1.0.0',
+        ],
+        'servers' => [],
+        'paths' => [
+
+        ],
+        'components' => [
+            'securitySchemes' => [
+                'auth:api' => ['type' => 'http', 'scheme' => 'bearer', 'bearerFormat' => 'JWT'],
+            ],
+            'schemas' => [
+
+            ],
+            'responses' => [
+                'Unauthorized' => [
+                    'description' => 'Unauthorized',
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'message' => ['type' => 'string'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'Success' => [
+                    'description' => 'Successful',
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'message' => ['type' => 'string'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'ValidationException' => [
+                    'description' => 'Validation errors',
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'message' => ['type' => 'string'],
+                                    'errors' => [
+                                        'type' => 'object',
+                                        'additionalProperties' => [
+                                            'type' => 'array',
+                                            'items' => ['type' => 'string'],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        'tags' => [],
+    ];
 
     private readonly array $security;
 
@@ -24,76 +92,6 @@ final class OpenApiGenerator
     {
         $this->security = [
             ['jwtAuth' => []],
-        ];
-
-        $this->data = [
-            'openapi' => '3.0.1',
-            'info' => [
-                'title' => '',
-                'description' => '',
-                'version' => '1.0.0',
-            ],
-            'servers' => [],
-            'paths' => [
-
-            ],
-            'components' => [
-                'securitySchemes' => [
-                    'auth:api' => ['type' => 'http', 'scheme' => 'bearer', 'bearerFormat' => 'JWT'],
-                ],
-                'schemas' => [
-
-                ],
-                'responses' => [
-                    'Unauthorized' => [
-                        'description' => 'Unauthorized',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'message' => ['type' => 'string'],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                    'Success' => [
-                        'description' => 'Successful',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'message' => ['type' => 'string'],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                    'ValidationException' => [
-                        'description' => 'Validation errors',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'message' => ['type' => 'string'],
-                                        'errors' => [
-                                            'type' => 'object',
-                                            'additionalProperties' => [
-                                                'type' => 'array',
-                                                'items' => ['type' => 'string'],
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-            'tags' => [],
         ];
     }
 

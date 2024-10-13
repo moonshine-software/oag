@@ -15,12 +15,29 @@ use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Password;
 use Symfony\Component\Console\Attribute\AsCommand;
 
+use function Laravel\Prompts\info;
+use function Laravel\Prompts\progress;
+
 #[AsCommand(name: 'oag:generate')]
 final class GenerateCommand extends Command
 {
     public function __construct(private readonly CoreContract $core)
     {
         parent::__construct();
+    }
+
+    public function handle(): int
+    {
+        progress(
+            label: 'Loading',
+            steps: $this->core->getResources()->count(),
+            callback: fn() => $this->build(),
+            hint: '...'
+        );
+
+        info('Documentation - ' . route('oag.docs'));
+
+        return self::SUCCESS;
     }
 
     private function endpoint(string $url): string
@@ -30,7 +47,7 @@ final class GenerateCommand extends Command
         return str_replace(
             $this->core->getRouter()->getEndpoints()->home(),
             '',
-            $url
+            $url,
         );
     }
 
@@ -60,7 +77,7 @@ final class GenerateCommand extends Command
         return array_filter(['type' => $type, 'format' => $format, ...$extra]);
     }
 
-    public function handle(): int
+    private function build(): void
     {
         $builder = new OpenApiGenerator();
         $builder
@@ -348,7 +365,5 @@ final class GenerateCommand extends Command
             ->jsonFormat()
             ->debug()
             ->build();
-
-        return self::SUCCESS;
     }
 }

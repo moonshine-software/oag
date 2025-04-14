@@ -91,7 +91,7 @@ final class OpenApiGenerator
     public function __construct()
     {
         $this->security = [
-            ['jwtAuth' => []],
+            ['auth:api' => []],
         ];
     }
 
@@ -222,7 +222,7 @@ final class OpenApiGenerator
         try {
             $result = Yaml::dump($this->data, 4, 2, flags: YAML::DUMP_MULTI_LINE_LITERAL_BLOCK);
 
-            $result = str_replace('jwtAuth: {  }', 'jwtAuth: []', $result);
+            $result = str_replace('auth:api: {  }', 'auth:api: []', $result);
 
             if ($this->yaml) {
                 file_put_contents(resource_path('oag.yaml'), $result);

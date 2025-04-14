@@ -91,7 +91,7 @@ final class OpenApiGenerator
     public function __construct()
     {
         $this->security = [
-            ['jwtAuth' => []],
+            ['auth:api' => []],
         ];
     }
 

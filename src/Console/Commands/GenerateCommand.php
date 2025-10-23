@@ -347,12 +347,15 @@ final class GenerateCommand extends Command
                     'operationId' => (string) $alias->append('MassDelete'),
                     'parameters' => [
                         [
-                            'name' => 'ids',
+                            'name' => 'ids[]',
                             'in' => 'query',
                             'required' => true,
                             'schema' => [
-                                ['type' => 'array'],
+                                'type' => 'array',
+                                'items' => ['type' => 'integer'],
                             ],
+                            'style' => 'form',
+                            'explode' => true,
                         ],
                     ],
                     'responses' => $defaultResponses,

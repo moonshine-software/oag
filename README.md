@@ -1,6 +1,6 @@
 # MoonShine OpenApi Generator
 
-[Documentation](https:://moonshine-laravel.com/docs/3.x/frontend/api#oag)
+[Documentation](https://moonshine-laravel.com/docs/3.x/frontend/api#oag)
 
 ## Requirements
 
